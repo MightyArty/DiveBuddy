@@ -1,0 +1,71 @@
+@media screen and (min-width: 300px) {
+  .App {
+    text-align: center;
+    display: flex;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+    background: url("https://images.unsplash.com/photo-1518467166778-b88f373ffec7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2231&q=80");
+    /* height: 100vh;
+    width: 100vw; */
+    height: 100%;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: "Tahoma", sans-serif;
+  }
+}
+
+.auth-form-container,
+.login-form,
+.register-form {
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (min-width: 300px) {
+  .auth-form-container {
+    padding: 0.5rem;
+    /* border: 1px solid white; */
+    border-radius: 10px;
+    margin: 0.5rem;
+    background-color: white;
+  }
+
+  label {
+    text-align: left;
+    padding: 0.1rem 0;
+  }
+
+  input {
+    margin: 0.5rem 0;
+    padding: 0.5rem 0;
+    border-radius: 5px;
+    font-family: "Tahoma", sans-serif;
+    border: 1px solid #ccc;
+  }
+
+  button {
+    border: none;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: "Tahoma", sans-serif;
+    color: black;
+  }
+
+  button:hover,
+  button:active {
+    background: #42a0ed;
+    border-color: #42a0ed;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.26);
+  }
+
+  .link-btn {
+    background: none;
+    color: rgb(61, 204, 247);
+    text-decoration: underline;
+  }
+}
