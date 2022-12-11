@@ -2,7 +2,6 @@ import "./App.css";
 import { Login } from "./StartPage/Login";
 import { Register } from "./StartPage/Register";
 import React, { useState } from "react";
-import Title from "./Title";
 
 function App() {
   const [currentForm, setCurrentForm] = useState("login");
