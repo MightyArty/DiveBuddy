@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Title from "../Title";
+import Title from "../Title/Title";
 
 export const Login = (props) => {
   const [email, setEmail] = useState("");
