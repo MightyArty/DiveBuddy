@@ -48,7 +48,7 @@
 
   button {
     border: none;
-    background-color: white;
+    background-color: #6da8d9;
     padding: 20px;
     border-radius: 10px;
     cursor: pointer;
@@ -58,14 +58,15 @@
 
   button:hover,
   button:active {
-    background: #42a0ed;
-    border-color: #42a0ed;
+    background: #6da8d9;
+    border-color: #6da8d9;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.26);
   }
 
   .link-btn {
+    /* padding: 20px; */
     background: none;
-    color: rgb(61, 204, 247);
+    color: black;
     text-decoration: underline;
   }
 }
