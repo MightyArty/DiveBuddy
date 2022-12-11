@@ -109,7 +109,7 @@ export const Register = (props) => {
             placeholder="your id"
           />
           <label htmlFor="name">Title</label>
-          <Select options={options} />
+          <Select options={options} name="title" id="title"/>
           <label htmlFor="password">Password</label>
           <input
             style={{
