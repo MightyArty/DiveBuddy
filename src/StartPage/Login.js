@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import Title from "../Title/Title";
 import { useNavigate } from "react-router-dom";
+import Select from "react-select";
 
 export const Login = (props) => {
   const [email, setEmail] = useState("");
+  const [title, setTitle] = useState("");
   const [password, setPassword] = useState("");
   const [isValid, setIsValid] = useState(true);
 
@@ -13,7 +15,9 @@ export const Login = (props) => {
     localStorage.getItem(localStorage.getItem("authenticated") || false)
   );
 
-  const users = [{ email: "example@gmail.com", password: "test1234" }];
+  const users = [
+    { email: "example@gmail.com", title: "Instructor", password: "test1234" },
+  ];
 
   const emailChangeHandler = (event) => {
     if (event.target.value.trim().length > 0) {
@@ -29,14 +33,30 @@ export const Login = (props) => {
     setPassword(event.target.value);
   };
 
+  const titleChangeHandler = (event) => {
+    if (event.target.value != null) {
+      setIsValid(true);
+    }
+    setTitle(event.target.value);
+  };
+
+  const options = [
+    { value: "Instructor", label: "Instructor" },
+    { value: "Student", label: "Student" },
+  ];
+
   const handlerSubmit = (event) => {
     event.preventDefault();
-    if (email.trim().length === 0 || password.trim().length === 0) {
+    if (
+      email.trim().length === 0 ||
+      password.trim().length === 0 ||
+      title === null
+    ) {
       setIsValid(false);
       return;
     }
     const account = users.find((user) => user.email === email);
-    if (account && account.password === password) {
+    if (account && account.password === password && account.title === title) {
       setAuthenticated(true);
       localStorage.setItem("authenticated", true);
       navigate("/dashboard");
@@ -63,7 +83,13 @@ export const Login = (props) => {
             id="email"
             name="email"
           />
-          <label htmlFor="password">Password</label>
+          <label htmlFor="title">Title</label>
+          <Select
+            options={options}
+            name="title"
+            id="title"
+            onValueChange={titleChangeHandler}
+          />
           <input
             style={{
               borderColor: !isValid ? "red" : "#ccc",

@@ -39,7 +39,7 @@ export const Register = (props) => {
   };
 
   const titleChangeHandler = (event) => {
-    if (event.target.value.trim().length > 0) {
+    if (event.target.value != null) {
       setIsValid(true);
     }
     setTitle(event.target.value);
@@ -57,7 +57,7 @@ export const Register = (props) => {
       email.trim().length === 0 ||
       password.trim().length === 0 ||
       ID.trim().length === 0 ||
-      title.trim().length === 0
+      title === null
     ) {
       setIsValid(false);
       return;
@@ -96,7 +96,7 @@ export const Register = (props) => {
             id="email"
             name="email"
           />
-          <label htmlFor="name">ID</label>
+          <label htmlFor="id">ID</label>
           <input
             style={{
               borderColor: !isValid ? "red" : "#ccc",
@@ -108,8 +108,13 @@ export const Register = (props) => {
             id="id"
             placeholder="your id"
           />
-          <label htmlFor="name">Title</label>
-          <Select options={options} name="title" id="title"/>
+          <label htmlFor="title">Title</label>
+          <Select
+            options={options}
+            name="title"
+            id="title"
+            onValueChange={titleChangeHandler}
+          />
           <label htmlFor="password">Password</label>
           <input
             style={{
