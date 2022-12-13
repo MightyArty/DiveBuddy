@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Title from "../Title/Title";
+import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 
 export const Register = (props) => {
@@ -9,6 +10,12 @@ export const Register = (props) => {
   const [ID, setID] = useState("");
   const [title, setTitle] = useState("");
   const [isValid, setIsValid] = useState(true);
+
+  const navigate = useNavigate();
+
+  const [authenticated, setAuthenticated] = useState(
+    localStorage.getItem(localStorage.getItem("authenticated") || false)
+  );
 
   const nameChangeHandler = (event) => {
     if (event.target.value.trim().length > 0) {
@@ -61,6 +68,11 @@ export const Register = (props) => {
     ) {
       setIsValid(false);
       return;
+    }
+    if (password.length > 4 && ID.length === 9) {
+      setAuthenticated(true);
+      localStorage.setItem("authenticated", true);
+      navigate("/dashboard");
     }
   };
 
