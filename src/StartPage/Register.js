@@ -39,10 +39,10 @@ export const Register = (props) => {
   };
 
   const titleChangeHandler = (event) => {
-    if (event.target.value != null) {
+    if (event?.value != null) {
       setIsValid(true);
     }
-    setTitle(event.target.value);
+    setTitle(event.value);
   };
 
   const options = [
@@ -113,7 +113,7 @@ export const Register = (props) => {
             options={options}
             name="title"
             id="title"
-            onValueChange={titleChangeHandler}
+            onChange={titleChangeHandler}
           />
           <label htmlFor="password">Password</label>
           <input

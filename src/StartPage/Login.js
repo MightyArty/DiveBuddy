@@ -34,10 +34,10 @@ export const Login = (props) => {
   };
 
   const titleChangeHandler = (event) => {
-    if (event.target.value != null) {
+    if (event?.value != null) {
       setIsValid(true);
     }
-    setTitle(event.target.value);
+    setTitle(event.value);
   };
 
   const options = [
@@ -88,7 +88,7 @@ export const Login = (props) => {
             options={options}
             name="title"
             id="title"
-            onValueChange={titleChangeHandler}
+            onChange={titleChangeHandler}
           />
           <input
             style={{
