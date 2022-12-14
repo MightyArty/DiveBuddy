@@ -72,7 +72,11 @@ export const Register = (props) => {
     if (password.length > 4 && ID.length === 9) {
       setAuthenticated(true);
       localStorage.setItem("authenticated", true);
-      navigate("/dashboard");
+      if (title === "Instructor") {
+        navigate("/instructor");
+      } else if (title === "Student") {
+        navigate("/student");
+      }
     }
   };
 

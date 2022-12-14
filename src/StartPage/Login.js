@@ -17,6 +17,7 @@ export const Login = (props) => {
 
   const users = [
     { email: "example@gmail.com", title: "Instructor", password: "test1234" },
+    { email: "student@gmail.com", title: "Student", password: "test1234" },
   ];
 
   const emailChangeHandler = (event) => {
@@ -59,7 +60,11 @@ export const Login = (props) => {
     if (account && account.password === password && account.title === title) {
       setAuthenticated(true);
       localStorage.setItem("authenticated", true);
-      navigate("/dashboard");
+      if (title === "Instructor") {
+        navigate("/instructor");
+      } else if (title === "Student") {
+        navigate("/student");
+      }
     }
   };
 
