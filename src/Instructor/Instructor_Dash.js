@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
+import "./Instructor_Dash.css";
+import Title from "./instructor_title";
 
 const Instructor_Dash = () => {
   const [authenticated, setauthenticated] = useState(null);
@@ -15,8 +17,8 @@ const Instructor_Dash = () => {
     return;
   } else {
     return (
-      <div>
-        <p>Welcome to your Dashboard, Instructor</p>
+      <div className="main">
+        <Title />
       </div>
     );
   }
