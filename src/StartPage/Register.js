@@ -144,7 +144,7 @@ export const Register = (props) => {
             id="password"
             name="password"
           />
-          <button type="submit">Register</button>
+          <button type="submit">Sign Up</button>
         </form>
         <button
           className="link-btn"

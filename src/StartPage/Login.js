@@ -7,6 +7,8 @@ export const Login = (props) => {
   const [email, setEmail] = useState("");
   const [title, setTitle] = useState("");
   const [password, setPassword] = useState("");
+
+
   const [isValid, setIsValid] = useState(true);
 
   const navigate = useNavigate();
@@ -15,6 +17,7 @@ export const Login = (props) => {
     localStorage.getItem(localStorage.getItem("authenticated") || false)
   );
 
+  // FIREBASE
   const users = [
     { email: "example@gmail.com", title: "Instructor", password: "test1234" },
     { email: "student@gmail.com", title: "Student", password: "test1234" },
