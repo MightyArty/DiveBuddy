@@ -19,6 +19,9 @@ const Instructor_Dash = () => {
     return (
       <div className="main">
         <Title />
+        <button className="neon-btn">Recent Dives</button>
+        <button className="neon-btn">Schedule</button>
+        <button className="neon-btn">Forum</button>
       </div>
     );
   }

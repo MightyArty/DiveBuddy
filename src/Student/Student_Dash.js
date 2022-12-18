@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
+import "./Student_Dash.css";
+import Title from "./student_title";
 
 const Student_Dash = () => {
   const [authenticated, setauthenticated] = useState(null);
@@ -15,8 +17,11 @@ const Student_Dash = () => {
     return;
   } else {
     return (
-      <div>
-        <p>Welcome to your Dashboard, Student</p>
+      <div className="main">
+        <Title />
+        <button className="neon-btn">Recent Dives</button>
+        <button className="neon-btn">Schedule</button>
+        <button className="neon-btn">Forum</button>
       </div>
     );
   }
