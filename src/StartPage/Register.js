@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import Title from "../Title/Title";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
-import { GoogleLogin } from "react-google-login";
-import { gapi } from "gapi-script";
 
 export const Register = (props) => {
   const [email, setEmail] = useState("");
@@ -12,20 +10,6 @@ export const Register = (props) => {
   const [ID, setID] = useState("");
   const [title, setTitle] = useState("");
   const [isValid, setIsValid] = useState(true);
-
-  // google sign in button functions
-  const clientID =
-    "412937453004-i7t4g7a9riucgcpbu90cr9arah36f47l.apps.googleusercontent.com";
-
-  useEffect(() => {
-    const initClient = () => {
-      gapi.client.init({
-        clientID: clientID,
-        scope: "",
-      });
-    };
-    gapi.load("client:auth2", initClient);
-  });
 
   const navigate = useNavigate();
 
@@ -168,12 +152,6 @@ export const Register = (props) => {
         >
           Already have an account? Login here
         </button>
-        <GoogleLogin
-          clientId="{clientID}"
-          buttonText="Sign Up with Google"
-          cookiePolicy={"single_host_origin"}
-          isSignedIn={true}
-        />
       </div>
     </div>
   );
