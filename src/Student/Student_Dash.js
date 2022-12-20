@@ -17,11 +17,11 @@ const Student_Dash = () => {
     return;
   } else {
     return (
-      <div className="main">
+      <div className="main-student">
         <Title />
-        <button className="neon-btn">Recent Dives</button>
-        <button className="neon-btn">Schedule</button>
-        <button className="neon-btn">Forum</button>
+        <button className="neon-btn-student">Recent Dives</button>
+        <button className="neon-btn-student">Schedule</button>
+        <button className="neon-btn-student">Forum</button>
       </div>
     );
   }
