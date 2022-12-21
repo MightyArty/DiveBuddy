@@ -1,29 +1,46 @@
 import { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import "./Instructor_Dash.css";
-import Title from "./instructor_title";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth, db, logout } from "../firebase";
+import { query, collection, getDocs, where } from "firebase/firestore";
+import { async } from "@firebase/util";
 
 const Instructor_Dash = () => {
-  const [authenticated, setauthenticated] = useState(null);
-  useEffect(() => {
-    const loggedInUser = localStorage.getItem("authenticated");
-    if (loggedInUser) {
-      setauthenticated(loggedInUser);
-    }
-  }, []);
+  const [user, loading, error] = useAuthState(auth);
+  const [name, setName] = useState("");
+  const [title, setTitle] = useState("");
+  const navigate = useNavigate();
 
-  if (!authenticated) {
-    // REDIRECT TO LOGIN PAGE
-    return;
-  } else {
-    return (
-      <div className="main-instructor">
-        <Title />
-        <button className="neon-btn-instructor">Recent Dives</button>
-        <button className="neon-btn-instructor">Schedule</button>
-        <button className="neon-btn-instructor">Forum</button>
+  const fetchUserName = async () => {
+    try {
+      const q = query(collection(db, "users"), where("uid", "==", user?.uid));
+      const doc = await getDocs(q);
+      const data = doc.docs[0].data();
+      setName(data.name);
+      setTitle(data.title);
+    } catch (err) {
+      alert("An error occured while fetching user data");
+    }
+  };
+
+  useEffect(() => {
+    if (!user) return navigate("/");
+    fetchUserName();
+  }, [user, loading]);
+
+  return (
+    <div className="main-instructor">
+      <div className="title-instructor">
+        <h1>Welcome Instructor</h1>
       </div>
-    );
-  }
+      <button className="neon-btn-instructor">Recent Dives</button>
+      <button className="neon-btn-instructor">Schedule</button>
+      <button className="neon-btn-instructor">Forum</button>
+      <button className="logout-btn" onClick={logout}>
+        Logout
+      </button>
+    </div>
+  );
 };
 export default Instructor_Dash;

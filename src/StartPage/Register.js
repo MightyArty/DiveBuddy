@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Title from "../Title/Title";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Select from "react-select";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth, registerWithEmailAndPassword } from "../firebase";
 
 export const Register = (props) => {
   const [email, setEmail] = useState("");
@@ -9,9 +11,10 @@ export const Register = (props) => {
   const [name, setName] = useState("");
   const [ID, setID] = useState("");
   const [title, setTitle] = useState("");
-  const [isValid, setIsValid] = useState(true);
-
+  const [user, loading, error] = useAuthState(auth);
   const navigate = useNavigate();
+
+  const [isValid, setIsValid] = useState(true);
 
   const [authenticated, setAuthenticated] = useState(
     localStorage.getItem(localStorage.getItem("authenticated") || false)
@@ -57,6 +60,20 @@ export const Register = (props) => {
     { value: "Student", label: "Student" },
   ];
 
+  const register = () => {
+    if (!name) alert("Please enter name");
+    registerWithEmailAndPassword(email, password, title, name, ID);
+  };
+
+  useEffect(() => {
+    if (user) {
+      navigate("/instructor");
+    }
+    // if (user && user.title === "Student") {
+    //   navigate("/student");
+    // }
+  }, [user, loading]);
+
   const handlerSubmit = (event) => {
     event.preventDefault();
     if (
@@ -69,15 +86,15 @@ export const Register = (props) => {
       setIsValid(false);
       return;
     }
-    if (password.length > 4 && ID.length === 9) {
-      setAuthenticated(true);
-      localStorage.setItem("authenticated", true);
-      if (title === "Instructor") {
-        navigate("/instructor");
-      } else if (title === "Student") {
-        navigate("/student");
-      }
-    }
+    // if (password.length > 4 && ID.length === 9) {
+    //   setAuthenticated(true);
+    //   localStorage.setItem("authenticated", true);
+    //   if (title === "Instructor") {
+    //     navigate("/instructor");
+    //   } else if (title === "Student") {
+    //     navigate("/student");
+    //   }
+    // }
   };
 
   return (
@@ -144,7 +161,9 @@ export const Register = (props) => {
             id="password"
             name="password"
           />
-          <button type="submit">Sign Up</button>
+          <button type="submit" onClick={register}>
+            Register
+          </button>
         </form>
         <button
           className="link-btn"
