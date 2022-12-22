@@ -4,6 +4,8 @@ import Message from "./Message";
 import { onSnapshot, query, collection, orderBy } from "firebase/firestore";
 import { db } from "../firebase";
 import SendMessage from "./SendMessage"; /// REMEMEBER - > ONLY BIG LETTERS IN THE BEGINING
+import "./Forum.css";
+import { useNavigate } from "react-router-dom";
 
 const style = {
   main: `flex flex-col p-[10px]`,
@@ -11,6 +13,7 @@ const style = {
 
 export const Chat = () => {
   const [messages, setMessages] = useState([]);
+  const navigate = useNavigate();
   const scroll = useRef();
 
   /*תתרחש רק פעם אחת  const q = query(collection(db, 'messages'), orderBy('timestamp')); אנחנו רוצים שהשורה 
@@ -30,19 +33,27 @@ export const Chat = () => {
     });
   }, []);
 
+  const move_back = () => {
+    navigate("/instructor");
+  };
+
   return (
     <>
-      <main className={style.main}>
-        {messages &&
-          messages.map((message) => (
-            <Message key={message.id} message={message} />
-          ))}
-      </main>
+      <div className="main-forum">
+        <div className="container-forum">
+          <h2>Forum</h2>
+          {messages &&
+            messages.map((message) => (
+              <Message key={message.id} message={message} />
+            ))}
+          <SendMessage scroll={scroll} />
+          <span ref={scroll}></span>
+          <button className="button-back" onClick={move_back}>
+            Go back
+          </button>
+        </div>
+      </div>
       {/* Send Message Compoenent */}
-      <SendMessage scroll={scroll} />
-      <span ref={scroll}></span>
     </>
   );
 };
-
-// export default Chat;

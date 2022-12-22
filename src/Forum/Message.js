@@ -1,3 +1,5 @@
+import "./Forum.css";
+
 const style = {
   message:
     "flex items-center shadow-xl m-4 py-2 px-3 rounded-tl-full rounded-tr-full",
@@ -14,8 +16,8 @@ const Message = ({ message }) => {
 */
   return (
     <div>
-      <div className={style.message}>
-        <div className={style.name}>Name</div>
+      <div className="message-forum">
+        <div className="name-forum">Name</div>
         <div>{message.text} </div>
       </div>
     </div>
