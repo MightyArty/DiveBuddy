@@ -16,10 +16,6 @@ export const Register = (props) => {
 
   const [isValid, setIsValid] = useState(true);
 
-  const [authenticated, setAuthenticated] = useState(
-    localStorage.getItem(localStorage.getItem("authenticated") || false)
-  );
-
   const nameChangeHandler = (event) => {
     if (event.target.value.trim().length > 0) {
       setIsValid(true);
@@ -66,12 +62,11 @@ export const Register = (props) => {
   };
 
   useEffect(() => {
-    if (user) {
+    if (user && title === "Instructor") {
       navigate("/instructor");
+    } else if (user && title === "Student") {
+      navigate("student");
     }
-    // if (user && user.title === "Student") {
-    //   navigate("/student");
-    // }
   }, [user, loading]);
 
   const handlerSubmit = (event) => {
@@ -86,15 +81,6 @@ export const Register = (props) => {
       setIsValid(false);
       return;
     }
-    // if (password.length > 4 && ID.length === 9) {
-    //   setAuthenticated(true);
-    //   localStorage.setItem("authenticated", true);
-    //   if (title === "Instructor") {
-    //     navigate("/instructor");
-    //   } else if (title === "Student") {
-    //     navigate("/student");
-    //   }
-    // }
   };
 
   return (

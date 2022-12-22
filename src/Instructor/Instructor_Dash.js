@@ -29,6 +29,10 @@ const Instructor_Dash = () => {
     fetchUserName();
   }, [user, loading]);
 
+  const move_to_forum = () => {
+    navigate("/forum");
+  };
+
   return (
     <div className="main-instructor">
       <div className="title-instructor">
@@ -36,7 +40,7 @@ const Instructor_Dash = () => {
       </div>
       <button className="neon-btn-instructor">Recent Dives</button>
       <button className="neon-btn-instructor">Schedule</button>
-      <button className="neon-btn-instructor">Forum</button>
+      <button className="neon-btn-instructor" onClick={move_to_forum}>Forum</button>
       <button className="logout-btn" onClick={logout}>
         Logout
       </button>

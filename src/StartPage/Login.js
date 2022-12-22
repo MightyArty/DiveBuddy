@@ -8,26 +8,16 @@ import {
   loginWithEmailAndPassword,
 } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { collection, getFirestore, getDocs } from "firebase/firestore";
 
 export const Login = (props) => {
   const [email, setEmail] = useState("");
-  // const [title, setTitle] = useState("");
   const [password, setPassword] = useState("");
   const [user, loading, error] = useAuthState(auth);
 
   const [isValid, setIsValid] = useState(true);
 
   const navigate = useNavigate();
-
-  const [authenticated, setAuthenticated] = useState(
-    localStorage.getItem(localStorage.getItem("authenticated") || false)
-  );
-
-  // for testing, local values
-  const users = [
-    { email: "example@gmail.com", title: "Instructor", password: "test1234" },
-    { email: "student@gmail.com", title: "Student", password: "test1234" },
-  ];
 
   const emailChangeHandler = (event) => {
     if (event.target.value.trim().length > 0) {
@@ -43,25 +33,21 @@ export const Login = (props) => {
     setPassword(event.target.value);
   };
 
-  // const titleChangeHandler = (event) => {
-  //   if (event?.value != null) {
-  //     setIsValid(true);
-  //   }
-  //   setTitle(event.value);
-  // };
-
-  const options = [
-    { value: "Instructor", label: "Instructor" },
-    { value: "Student", label: "Student" },
-  ];
-
   useEffect(() => {
     if (user) {
-      navigate("/dashboard");
+      const db = getFirestore();
+      const colRef = collection(db, "users");
+      getDocs(colRef).then((snapshot) => {
+        let users = [];
+        snapshot.docs.forEach((doc) => {
+          var user_data = doc.data();
+          var user_uid = user_data.uid;
+          if (user_uid === user.uid) {
+            navigate("/" + user_data.title.toLowerCase());
+          }
+        });
+      });
     }
-    // if (user) {
-    //   navigate("/student");
-    // }
   }, [user, loading]);
 
   const handlerSubmit = (event) => {
@@ -70,16 +56,6 @@ export const Login = (props) => {
       setIsValid(false);
       return;
     }
-    // const account = users.find((user) => user.email === email);
-    // if (account && account.password === password && account.title === title) {
-    //   setAuthenticated(true);
-    //   localStorage.setItem("authenticated", true);
-    //   if (title === "Instructor") {
-    //     navigate("/instructor");
-    //   } else if (title === "Student") {
-    //     navigate("/student");
-    //   }
-    // }
   };
 
   return (
