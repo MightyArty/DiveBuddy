@@ -1,6 +1,6 @@
 # Dive Buddy
 
-<a href="https://ibb.co/SNk24n4"><img src="https://i.ibb.co/WnrQ4y4/Screen-Shot-2022-12-18-at-20-51-52.png" alt="Screen-Shot-2022-12-18-at-20-51-52" border="0"></a>
+<img src="https://i.ibb.co/WnrQ4y4/Screen-Shot-2022-12-18-at-20-51-52.png" width="300" height="500">
 
 ## About:
 
