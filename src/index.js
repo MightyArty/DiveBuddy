@@ -7,6 +7,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Login } from "./StartPage/Login";
 import { Chat } from "./Forum/Chat";
 import Student_Dash from "./Student/Student_Dash";
+import AddDive from "./Student/AddDive";
+import ShowDives from './Student/ShowDives';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -18,6 +20,8 @@ root.render(
         <Route path="forum" element={<Chat />} />
         <Route path="instructor" element={<Instructor_Dash />} />
         <Route path="student" element={<Student_Dash />} />
+        <Route path="add_dive" element={<AddDive />} />
+        <Route path="show_dives" element={<ShowDives />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

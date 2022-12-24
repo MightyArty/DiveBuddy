@@ -10,7 +10,7 @@ const Dashboard = () => {
   const [name, setName] = useState("");
   const [title, setTitle] = useState("");
   const navigate = useNavigate();
-
+  
   const fetchUserName = async () => {
     try {
       const q = query(collection(db, "users"), where("uid", "==", user?.uid));

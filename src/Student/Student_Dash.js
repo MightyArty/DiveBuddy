@@ -33,7 +33,18 @@ const Student_Dash = () => {
       <div className="title-student">
         <h1>Welcome Student</h1>
       </div>
-      <button className="neon-btn-student">Recent Dives</button>
+      <select className="neon-btn-student"
+      onChange={(e) => {
+        const selectDive = e.target.value;
+        if (selectDive === 'add')
+          navigate('/add_dive')
+        if (selectDive === 'show')
+        navigate('/show_dives')
+      }}>
+        <option>Dives</option>
+        <option value="add">Add Dive</option>
+        <option value="show">Show Dives</option>
+      </select>
       <button className="neon-btn-student">Schedule</button>
       <button className="neon-btn-student">Forum</button>
       <button className="logout-btn" onClick={logout}>
