@@ -33,7 +33,7 @@ const Student_Dash = () => {
   };
 
   const move_to_schedule = () => {
-    navigate("/schedule");
+    navigate("/student_schedule");
   };
 
   return (
