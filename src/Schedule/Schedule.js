@@ -13,6 +13,7 @@ import {
   addDoc,
   collection,
   doc,
+  getDocs,
   getFirestore,
   onSnapshot,
   query,
@@ -55,31 +56,30 @@ const Weekly_Update = () => {
     locales,
   });
 
-  // useEffect(() => {
-  //   const q = query(collection(db, "Schedule"));
-  //   onSnapshot(q, (snapshot) => {
-  //     let temp = [];
-  //     snapshot.forEach((doc) => {
-  //       temp.push(...doc.data())
-  //     })
-  //     setNewEvent(snapshot.docs), setAllEvents([...allEvents, newEvent]);
-  //   }),
-  //     [];
-  // });
-
   useEffect(() => {
-    const db = getFirestore();
-    const q = query(collection(db, "Schedule"));
-    onSnapshot(q, (snapshot) => {
-      let temp = [];
-      snapshot.forEach((doc) => {
-        temp.push(...doc.data());
+    const fetchData = async () => {
+      let tempData = [];
+      // getting all docs from Schedule collection
+      const querySnapshot = await getDocs(collection(db, "Schedule"));
+      querySnapshot.forEach((doc) => {
+        // going throwgh each doc to get tha values
+        let docData = doc.data();
+        // convert firebase timestap to valid date
+        let start = new Date(docData.start.seconds * 1000);
+        let end = new Date(docData.end.seconds * 1000);
+        tempData.push({
+          title: docData.title,
+          start: start,
+          end: end,
+          id: doc.id,
+        });
       });
-      setNewEvent(temp);
-    });
-  });
+      setAllEvents(tempData);
+    };
+    fetchData();
+  }, []);
 
-  function handleAddEvent() {
+  async function handleAddEvent() {
     for (let i = 0; i < allEvents.length; i++) {
       const d1 = new Date(allEvents[i].start);
       const d2 = new Date(newEvent.start);
@@ -88,10 +88,10 @@ const Weekly_Update = () => {
 
       if ((d1 <= d2 && d2 <= d3) || (d1 <= d4 && d4 <= d3)) {
         alert("CLASH");
-        break;
+        return;
       }
     }
-    addDoc(collection(db, "Schedule"), {
+    const d = await addDoc(collection(db, "Schedule"), {
       title: newEvent.title,
       start: newEvent.start,
       end: newEvent.end,
