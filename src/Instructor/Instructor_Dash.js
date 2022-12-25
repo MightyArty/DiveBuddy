@@ -33,14 +33,22 @@ const Instructor_Dash = () => {
     navigate("/forum");
   };
 
+  const move_to_schedule = () => {
+    navigate("/schedule");
+  };
+
   return (
     <div className="main-instructor">
       <div className="title-instructor">
         <h1>Welcome Instructor</h1>
       </div>
       <button className="neon-btn-instructor">Recent Dives</button>
-      <button className="neon-btn-instructor">Schedule</button>
-      <button className="neon-btn-instructor" onClick={move_to_forum}>Forum</button>
+      <button className="neon-btn-instructor" onClick={move_to_schedule}>
+        Schedule
+      </button>
+      <button className="neon-btn-instructor" onClick={move_to_forum}>
+        Forum
+      </button>
       <button className="logout-btn" onClick={logout}>
         Logout
       </button>
