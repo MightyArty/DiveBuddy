@@ -1,0 +1,26 @@
+
+.app{
+    width: 100%;
+    height: vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+    
+  table {
+    border: 5px solid black;
+    width: 4000px;
+    height: 200px;
+  
+  }
+  
+  tq {
+    border-bottom: 0.1px solid black;
+  } 
+  th {
+    border-bottom: 0.01px solid black;
+  }
+    
+  td {
+    text-align: center;
+  }
