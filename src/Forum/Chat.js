@@ -33,10 +33,6 @@ export const Chat = () => {
     });
   }, []);
 
-  const move_back = () => {
-    navigate("/instructor");
-  };
-
   return (
     <>
       <div className="main-forum">
@@ -48,12 +44,8 @@ export const Chat = () => {
             ))}
           <SendMessage scroll={scroll} />
           <span ref={scroll}></span>
-          <button className="button-back" onClick={move_back}>
-            Go back
-          </button>
         </div>
       </div>
-      {/* Send Message Compoenent */}
     </>
   );
 };

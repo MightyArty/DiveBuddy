@@ -17,13 +17,14 @@ import {
 } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCu6gHqfkOOiIo9KbNQEoIOfdy70YGuseg",
-  authDomain: "buddydivet.firebaseapp.com",
-  projectId: "buddydivet",
-  storageBucket: "buddydivet.appspot.com",
-  messagingSenderId: "27362223185",
-  appId: "1:27362223185:web:30ffa0acd297d6d268c470"
+  apiKey: "AIzaSyB-EcBPXx3UdNDJIW5SF9GWEX0tnj2nDQU",
+  authDomain: "dive-buddy-a0b62.firebaseapp.com",
+  projectId: "dive-buddy-a0b62",
+  storageBucket: "dive-buddy-a0b62.appspot.com",
+  messagingSenderId: "591432718206",
+  appId: "1:591432718206:web:74dc52f7838ecb94f2052f",
 };
+
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
@@ -46,7 +47,12 @@ const registerWithEmailAndPassword = async (
   ID
 ) => {
   try {
-    const res = await createUserWithEmailAndPassword(auth, email, password, title);
+    const res = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password,
+      title
+    );
     const user = res.user;
     await addDoc(collection(db, "users"), {
       uid: user.uid,

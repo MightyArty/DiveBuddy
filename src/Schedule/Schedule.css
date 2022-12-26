@@ -1,17 +1,16 @@
 @media screen and (min-width: 300px) {
-    .main-schedule {
-      text-align: center;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-      width: 100%;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-color: rgb(254, 254, 254);
-      place-items: center;
-      font-family: "Tahoma", sans-serif;
-      
-    }
+  .main-schedule {
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    height: "100%";
+    width: "100%";
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* background-color: rgb(254, 254, 254); */
+    place-items: center;
+    font-family: "Tahoma", sans-serif;
+    background-image: linear-gradient(white,aqua,white);
   }
-  
+}

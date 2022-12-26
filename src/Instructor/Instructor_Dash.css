@@ -6,7 +6,8 @@
   }
 
   .main-instructor {
-    background: url("https://cdn.pixabay.com/photo/2013/11/01/11/13/dolphin-203875_1280.jpg");
+    /* background: url("https://cdn.pixabay.com/photo/2013/11/01/11/13/dolphin-203875_1280.jpg"); */
+    background-image: linear-gradient(white,aqua);
     display: grid;
     min-height: 100vh;
     align-items: center;
@@ -34,6 +35,7 @@
     background-color: transparent;
     font-family: "Tahoma", sans-serif;
     font-variant: small-caps;
+    color: black;
   }
 
   .btn-wrapper {
