@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useEffect,useRef } from "react";
-import {db,setAllDocs} from '../firebase'
+import {db,auth} from '../firebase'
 import {getDocs, collection , where} from 'firebase/firestore'
 import { query } from "firebase/firestore";
 import './ShowDives.css';
@@ -15,9 +15,7 @@ class FetchDivers extends React.Component {
       }
       
     componentDidMount() {
-     
-      console.log('marcow')
-      const colRef = query(collection(db, "Names"), where("name", "==", "tom"));
+      const colRef = query(collection(db, "users"), where("email", "==", auth.currentUser.email));
       getDocs(colRef).then((snapshot) => {
           let rDives = [];
           console.log(snapshot)
@@ -26,7 +24,7 @@ class FetchDivers extends React.Component {
              rDives.push({...snap.data()});
           });
           console.log(rDives[0])
-          this.setState({ r: rDives[0].dive}); /// only the array full of dives of the current user 
+          this.setState({ r: rDives[0].dives}); /// only the array full of dives of the current user 
         });
    }
     
@@ -35,25 +33,26 @@ class FetchDivers extends React.Component {
       <div >
         <table>
           <tr>
-          <th>DiveN</th>
-            <th>partner</th>
-            <th>date</th>
-            <th>diveTime</th>
-            <th>max_depth</th>
-            <th>confirmed</th>
-            <th>site</th>
+            <th>Confirmed</th>
+            <th>Date</th>
+            <th>Site</th>
+            <th>Dive Duration</th>
+            <th>Depth</th>
+            <th>Special Equipment</th>
+            <th>Note</th>
           </tr>
           {this.state.r.map(data =>  {
             
             return (
               <tr key={data.id}>
-                <td>{data.DiveN}</td>
-                <td>{data.Partner}</td>
-                <td>{data.date}</td>
-                <td>{data.DiveTime}</td>
-                <td>{data.MaxDepth}</td>
                 <td>{data.confirmed}</td>
-                <td>{data.Site}</td>
+                <td>{data.date}</td>
+                <td>{data.site}</td>
+                <td>{data.dive_duration}</td>
+                <td>{data.depth}</td>
+                <td>{data.equipment}</td>
+                <td>{data.note}</td>
+                
               </tr>
             )
           })}

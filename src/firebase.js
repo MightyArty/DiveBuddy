@@ -17,12 +17,13 @@ import {
 } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyB-EcBPXx3UdNDJIW5SF9GWEX0tnj2nDQU",
-  authDomain: "dive-buddy-a0b62.firebaseapp.com",
-  projectId: "dive-buddy-a0b62",
-  storageBucket: "dive-buddy-a0b62.appspot.com",
-  messagingSenderId: "591432718206",
-  appId: "1:591432718206:web:74dc52f7838ecb94f2052f",
+  apiKey: "AIzaSyA6kaOF7uBtcM-Vy-bjXuBZp8yRrgCW_JI",
+  authDomain: "divebuddy-7b623.firebaseapp.com",
+  projectId: "divebuddy-7b623",
+  storageBucket: "divebuddy-7b623.appspot.com",
+  messagingSenderId: "931491620385",
+  appId: "1:931491620385:web:bbb3282b408ba88080e560",
+  measurementId: "G-SXGV67PK5V"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -61,6 +62,7 @@ const registerWithEmailAndPassword = async (
       title,
       authProvider: "local",
       email,
+      dives: [],
     });
   } catch (err) {
     alert(err.message);
