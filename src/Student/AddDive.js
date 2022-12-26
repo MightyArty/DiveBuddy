@@ -29,7 +29,7 @@ function App() {
         Special equipment: <input type="text"
          value={equipment} onChange={(e)=>setEquipment(e.target.value)}/>
       </div>
-      <div>
+       <div>
         Dive duration (minutes): <input type="number" required={true} className='block'
          value={dive_duration} onChange={(e)=>setDiveDuration(e.target.value)}/>
 
