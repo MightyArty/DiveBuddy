@@ -17,13 +17,12 @@ import {
 } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyA6kaOF7uBtcM-Vy-bjXuBZp8yRrgCW_JI",
-  authDomain: "divebuddy-7b623.firebaseapp.com",
-  projectId: "divebuddy-7b623",
-  storageBucket: "divebuddy-7b623.appspot.com",
-  messagingSenderId: "931491620385",
-  appId: "1:931491620385:web:bbb3282b408ba88080e560",
-  measurementId: "G-SXGV67PK5V"
+  apiKey: "AIzaSyCu6gHqfkOOiIo9KbNQEoIOfdy70YGuseg",
+  authDomain: "buddydivet.firebaseapp.com",
+  projectId: "buddydivet",
+  storageBucket: "buddydivet.appspot.com",
+  messagingSenderId: "27362223185",
+  appId: "1:27362223185:web:30ffa0acd297d6d268c470"
 };
 
 const app = initializeApp(firebaseConfig);
