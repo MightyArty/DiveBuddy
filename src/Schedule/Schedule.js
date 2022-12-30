@@ -20,29 +20,9 @@ import {
   where,
 } from "firebase/firestore";
 
-// need to add from FIREBASE
-const events = [
-  {
-    title: "Morning Diving",
-    start: new Date(2022, 11, 6, 8),
-    end: new Date(2022, 11, 6, 10),
-  },
-  {
-    title: "Group Meeting",
-    start: new Date(2022, 11, 23),
-    end: new Date(2022, 11, 25),
-  },
-  {
-    title: "Closed due to bad sea",
-    allDay: true,
-    start: new Date(2022, 11, 15),
-    end: new Date(2022, 11, 17),
-  },
-];
-
 const Weekly_Update = () => {
   const [newEvent, setNewEvent] = useState({ title: "", start: "", end: "" });
-  const [allEvents, setAllEvents] = useState(events);
+  const [allEvents, setAllEvents] = useState();
 
   const locales = {
     "en-US": require("date-fns/locale/en-US"),
