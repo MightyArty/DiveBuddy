@@ -14,40 +14,40 @@ export const Register = (props) => {
   const [user, loading, error] = useAuthState(auth);
   const navigate = useNavigate();
 
-  const [isValid, setIsValid] = useState(true);
+  const [email_validation, setEmail_validation] = useState(true);
+  const [password_validation, setPassword_validation] = useState(true);
+  const [name_validation, setName_validation] = useState(true);
+  const [ID_validation, setID_validation] = useState(true);
 
   const nameChangeHandler = (event) => {
     if (event.target.value.trim().length > 0) {
-      setIsValid(true);
+      setName_validation(true);
     }
     setName(event.target.value);
   };
 
   const emailChangeHandler = (event) => {
     if (event.target.value.trim().length > 0) {
-      setIsValid(true);
+      setEmail_validation(true);
     }
     setEmail(event.target.value);
   };
 
   const passwordChangeHandler = (event) => {
     if (event.target.value.trim().length > 0) {
-      setIsValid(true);
+      setPassword_validation(true);
     }
     setPassword(event.target.value);
   };
 
   const idChangeHandler = (event) => {
     if (event.target.value.trim().length > 0) {
-      setIsValid(true);
+      setID_validation(true);
     }
     setID(event.target.value);
   };
 
   const titleChangeHandler = (event) => {
-    if (event?.value != null) {
-      setIsValid(true);
-    }
     setTitle(event.value);
   };
 
@@ -71,14 +71,27 @@ export const Register = (props) => {
 
   const handlerSubmit = (event) => {
     event.preventDefault();
-    if (
-      name.trim().length === 0 ||
-      email.trim().length === 0 ||
-      password.trim().length === 0 ||
-      ID.trim().length === 0 ||
-      title === null
-    ) {
-      setIsValid(false);
+    if (email.trim().length === 0 || !email.includes("@")) {
+      setEmail_validation(false);
+      return;
+    }
+    if (name.trim().length === 0) {
+      setName_validation(false);
+      alert("Enter your name!");
+      return;
+    }
+    if (password.trim().length === 0) {
+      setPassword_validation(false);
+      alert("Enter valid password!");
+      return;
+    }
+    if (ID.trim().length === 0) {
+      setID_validation(false);
+      alert("Enter ID!");
+      return;
+    }
+    if (title === null) {
+      alert("Please choose your title!");
       return;
     }
   };
@@ -92,8 +105,8 @@ export const Register = (props) => {
           <label htmlFor="name">Full name</label>
           <input
             style={{
-              borderColor: !isValid ? "red" : "#ccc",
-              background: !isValid ? "salmon" : "transparent",
+              borderColor: !name_validation ? "red" : "#ccc",
+              background: !name_validation ? "salmon" : "transparent",
             }}
             autoFocus
             value={name}
@@ -105,8 +118,8 @@ export const Register = (props) => {
           <label htmlFor="email">Email</label>
           <input
             style={{
-              borderColor: !isValid ? "red" : "#ccc",
-              background: !isValid ? "salmon" : "transparent",
+              borderColor: !email_validation ? "red" : "#ccc",
+              background: !email_validation ? "salmon" : "transparent",
             }}
             value={email}
             onChange={emailChangeHandler}
@@ -118,8 +131,8 @@ export const Register = (props) => {
           <label htmlFor="id">ID</label>
           <input
             style={{
-              borderColor: !isValid ? "red" : "#ccc",
-              background: !isValid ? "salmon" : "transparent",
+              borderColor: !ID_validation ? "red" : "#ccc",
+              background: !ID_validation ? "salmon" : "transparent",
             }}
             value={ID}
             onChange={idChangeHandler}
@@ -137,8 +150,8 @@ export const Register = (props) => {
           <label htmlFor="password">Password</label>
           <input
             style={{
-              borderColor: !isValid ? "red" : "#ccc",
-              background: !isValid ? "salmon" : "transparent",
+              borderColor: !password_validation ? "red" : "#ccc",
+              background: !password_validation ? "salmon" : "transparent",
             }}
             value={password}
             type="password"

@@ -11,25 +11,25 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { collection, getFirestore, getDocs } from "firebase/firestore";
 
 export const Login = (props) => {
-  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [user, loading, error] = useAuthState(auth);
-  
-  const [isValid, setIsValid] = useState(true);
+
+  const [email_validation, setEmail_validation] = useState(true);
+  const [password_validation, setPassword_validation] = useState(true);
 
   const navigate = useNavigate();
 
   const emailChangeHandler = (event) => {
     if (event.target.value.trim().length > 0) {
-      setIsValid(true);
+      setEmail_validation(true);
     }
     setEmail(event.target.value);
   };
 
   const passwordChangeHandler = (event) => {
     if (event.target.value.trim().length > 0) {
-      setIsValid(true);
+      setPassword_validation(true);
     }
     setPassword(event.target.value);
   };
@@ -53,8 +53,12 @@ export const Login = (props) => {
 
   const handlerSubmit = (event) => {
     event.preventDefault();
-    if (email.trim().length === 0 || password.trim().length === 0) {
-      setIsValid(false);
+    if (email.trim().length === 0) {
+      setEmail_validation(false);
+      return;
+    }
+    if (password.trim().length === 0) {
+      setPassword_validation(false);
       return;
     }
   };
@@ -68,8 +72,8 @@ export const Login = (props) => {
           <label htmlFor="email">Email</label>
           <input
             style={{
-              borderColor: !isValid ? "red" : "#ccc",
-              background: !isValid ? "salmon" : "transparent",
+              borderColor: !email_validation ? "red" : "#ccc",
+              background: !email_validation ? "salmon" : "transparent",
             }}
             autoFocus
             value={email}
@@ -82,8 +86,8 @@ export const Login = (props) => {
           <label htmlFor="password">Password</label>
           <input
             style={{
-              borderColor: !isValid ? "red" : "#ccc",
-              background: !isValid ? "salmon" : "transparent",
+              borderColor: !password_validation ? "red" : "#ccc",
+              background: !password_validation ? "salmon" : "transparent",
             }}
             value={password}
             onChange={passwordChangeHandler}
