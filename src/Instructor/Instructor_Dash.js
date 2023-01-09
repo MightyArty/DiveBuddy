@@ -47,7 +47,7 @@ const Instructor_Dash = () => {
         <h1>Welcome Instructor</h1>
       </div>
       <button className="neon-btn-instructor" onClick={move_to_recent_dives}>
-        Recent Dives
+        Students dive log
       </button>
       <button className="neon-btn-instructor" onClick={move_to_schedule}>
         Schedule

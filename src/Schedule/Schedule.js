@@ -81,7 +81,7 @@ const Weekly_Update = () => {
 
   return (
     <div className="main-schedule">
-      <h1>Our Schedule</h1>
+      <h1>School Schedule</h1>
       <h2>Add New Event</h2>
       <div>
         <input

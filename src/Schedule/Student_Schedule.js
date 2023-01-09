@@ -59,7 +59,7 @@ const Student_Schedule = () => {
 
   return (
     <div className="main-schedule">
-      <h1>Our Schedule</h1>
+      <h1>School Schedule</h1>
       <Calendar
         localizer={localizer}
         events={allEvents}
