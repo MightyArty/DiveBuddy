@@ -85,8 +85,18 @@ const Weekly_Update = () => {
     <div className="main-schedule">
       <h1>School Schedule</h1>
       {/* <h2>Add New Event</h2> */}
+
+      <Calendar
+        localizer={localizer}
+        events={allEvents}
+        startAccessor="start"
+        endAccessor="end"
+        style={{ height: 400, margin: "50px" }}
+      />
       <div>
+        <h2>Add New Event</h2>
         <input
+          autoFocus
           type="text"
           placeholder="Add Title"
           style={{ width: "20%", marginRight: "10px" }}
@@ -110,13 +120,6 @@ const Weekly_Update = () => {
           Add Event
         </button>
       </div>
-      <Calendar
-        localizer={localizer}
-        events={allEvents}
-        startAccessor="start"
-        endAccessor="end"
-        style={{ height: 400, margin: "50px" }}
-      />
     </div>
   );
 };
