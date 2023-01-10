@@ -9,6 +9,7 @@ import {
 } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { collection, getFirestore, getDocs } from "firebase/firestore";
+import { db } from "../firebase";
 
 export const Login = (props) => {
   const [email, setEmail] = useState("");
@@ -36,7 +37,7 @@ export const Login = (props) => {
 
   useEffect(() => {
     if (user) {
-      const db = getFirestore();
+      // const db = getFirestore();
       const colRef = collection(db, "users");
       getDocs(colRef).then((snapshot) => {
         let users = [];
