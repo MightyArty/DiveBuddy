@@ -66,6 +66,7 @@ const Weekly_Update = () => {
       const d3 = new Date(allEvents[i].end);
       const d4 = new Date(allEvents.end);
 
+      // checking for valid input of the start and end dates
       if ((d1 <= d2 && d2 <= d3) || (d1 <= d4 && d4 <= d3)) {
         alert("CLASH");
         return;
@@ -77,12 +78,13 @@ const Weekly_Update = () => {
       end: newEvent.end,
     });
     setAllEvents([...allEvents, newEvent]);
+    setNewEvent("");
   }
 
   return (
     <div className="main-schedule">
       <h1>School Schedule</h1>
-      <h2>Add New Event</h2>
+      {/* <h2>Add New Event</h2> */}
       <div>
         <input
           type="text"
@@ -101,7 +103,7 @@ const Weekly_Update = () => {
         />
         <DatePicker
           placeholderText="End Date"
-          selected={newEvent.start}
+          selected={newEvent.end}
           onChange={(end) => setNewEvent({ ...newEvent, end })}
         />
         <button style={{ marginTop: "10px" }} onClick={handleAddEvent}>
@@ -113,7 +115,7 @@ const Weekly_Update = () => {
         events={allEvents}
         startAccessor="start"
         endAccessor="end"
-        style={{ height: 500, margin: "50px" }}
+        style={{ height: 400, margin: "50px" }}
       />
     </div>
   );
