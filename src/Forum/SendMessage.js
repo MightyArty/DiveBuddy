@@ -1,9 +1,7 @@
-import React, { useState } from "react";
-import { auth } from "../firebase";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
 import "./Forum.css";
-import { useRef } from "react";
-import { getDocs, getFirestore } from "firebase/firestore";
+import { useApiContext } from "../hooks/useApiContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const style = {
   form: `h-14 w-full max-w-[728px]  flex text-xl absolute bottom-0`,
@@ -11,46 +9,52 @@ const style = {
   button: `w-[20%] bg-red-500`,
 };
 
-const SendMessage = () => {
-  const name = useRef();
-  const [input, setInput] = useState("");
-  /// getting name from database
-  const db = getFirestore();
-  const colRef = collection(db, "users");
-  getDocs(colRef).then((snapshot) => {
-    snapshot.docs.forEach((doc) => {
-      var user_data = doc.data();
-      var user_email = user_data.email;
-      if (user_email === auth.currentUser.email) {
-        name.current = user_data.name;
-      }
-    });
-  });
+const SendMessage = (props) => {
+  const { handleAddMessage } = props;
+  const [message, setMessage] = useState("");
+  const [messages, setMessages] = useState([]);
+  const { apiCall } = useApiContext();
+  const { user } = useAuthContext();
 
-  const send_func = (event) => {
-    event.preventDefault();
-    const { uid, displayName } = auth.currentUser;
-    addDoc(collection(db, "messages"), {
-      text: input,
-      name: name.current,
-      uid,
-      timestamp: serverTimestamp(),
-    });
-    setInput("");
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data } = await apiCall("messages");
+        console.log(data?.messages);
+        setMessages(data.messages);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  async function handleAddEvent() {
+    try {
+      const { data } = await apiCall("messages", "POST", {
+        text: message,
+        user: user._id,
+      });
+      handleAddMessage(data._message);
+      console.log(data._message);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
-    <form onSubmit={send_func} className="form-forum">
+    <div className="form-forum">
       Enter your message
       <input
+        onChange={(e) => setMessage(e.target.value)}
         className={style.input}
-        onChange={(event) => setInput(event.target.value)} ///change ths state of input to the value of what a user writen
-        value={input}
         type="text"
         placeholder="Message"
       />
-      <button className="button-forum">Send</button>
-    </form>
+      <button className="button-forum" onClick={handleAddEvent}>
+        Send
+      </button>
+    </div>
   );
 };
 

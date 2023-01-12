@@ -4,15 +4,17 @@ import { Link, useNavigate } from "react-router-dom";
 import Select from "react-select";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, registerWithEmailAndPassword } from "../firebase";
+import { useApiContext } from "../hooks/useApiContext";
 
 export const Register = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  const [ID, setID] = useState("");
+  const [id, setId] = useState("");
   const [title, setTitle] = useState("");
   const [user, loading, error] = useAuthState(auth);
   const navigate = useNavigate();
+  const { apiCall } = useApiContext();
 
   const [email_validation, setEmail_validation] = useState(true);
   const [password_validation, setPassword_validation] = useState(true);
@@ -44,7 +46,7 @@ export const Register = (props) => {
     if (event.target.value.trim().length > 0) {
       setID_validation(true);
     }
-    setID(event.target.value);
+    setId(event.target.value);
   };
 
   const titleChangeHandler = (event) => {
@@ -56,18 +58,42 @@ export const Register = (props) => {
     { value: "Student", label: "Student" },
   ];
 
-  const register = () => {
-    if (!name) alert("Please enter name");
-    registerWithEmailAndPassword(email, password, title, name, ID);
-  };
+  // const register = () => {
+  //   if (!name) alert("Please enter name");
+  //   registerWithEmailAndPassword(email, password, title, name, id);
+  // };
 
-  useEffect(() => {
-    if (user && title === "Instructor") {
-      navigate("/instructor");
-    } else if (user && title === "Student") {
-      navigate("student");
+  // useEffect(() => {
+  //   if (user && title === "Instructor") {
+  //     navigate("/instructor");
+  //   } else if (user && title === "Student") {
+  //     navigate("student");
+  //   }
+  // }, [user, loading]);
+
+  const signup = async (event) => {
+    event.preventDefault();
+    try {
+      const { status, data } = await apiCall("users/signup", "POST", {
+        email,
+        password,
+        title,
+        name,
+        id,
+      });
+      console.log(status);
+      if (status === 200) {
+        if (data.user.title === "Instructor") {
+          navigate("/instructor");
+        } else if (data.user.title === "Student") {
+          navigate("/student");
+        }
+      }
+      console.log(data);
+    } catch (error) {
+      console.log(error);
     }
-  }, [user, loading]);
+  };
 
   const handlerSubmit = (event) => {
     event.preventDefault();
@@ -85,7 +111,7 @@ export const Register = (props) => {
       alert("Enter valid password!");
       return;
     }
-    if (ID.trim().length === 0) {
+    if (id.trim().length === 0) {
       setID_validation(false);
       alert("Enter ID!");
       return;
@@ -101,7 +127,7 @@ export const Register = (props) => {
       <Title />
       <div className="auth-form-container">
         <h2>Register</h2>
-        <form className="register-form" onSubmit={handlerSubmit}>
+        <form className="register-form" onSubmit={(e) => signup(e)}>
           <label htmlFor="name">Full name</label>
           <input
             style={{
@@ -134,7 +160,7 @@ export const Register = (props) => {
               borderColor: !ID_validation ? "red" : "#ccc",
               background: !ID_validation ? "salmon" : "transparent",
             }}
-            value={ID}
+            value={id}
             onChange={idChangeHandler}
             name="id"
             id="id"
@@ -160,9 +186,7 @@ export const Register = (props) => {
             id="password"
             name="password"
           />
-          <button type="submit" onClick={register}>
-            Register
-          </button>
+          <button type="submit">Register</button>
         </form>
         <button
           className="link-btn"

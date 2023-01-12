@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Title from "../Title/Title";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 import {
   auth,
@@ -10,6 +10,8 @@ import {
 import { useAuthState } from "react-firebase-hooks/auth";
 import { collection, getFirestore, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
+import { useApiContext } from "../hooks/useApiContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 export const Login = (props) => {
   const [email, setEmail] = useState("");
@@ -18,7 +20,8 @@ export const Login = (props) => {
 
   const [email_validation, setEmail_validation] = useState(true);
   const [password_validation, setPassword_validation] = useState(true);
-
+  const { apiCall } = useApiContext();
+  const { dispatch } = useAuthContext();
   const navigate = useNavigate();
 
   const emailChangeHandler = (event) => {
@@ -35,41 +38,59 @@ export const Login = (props) => {
     setPassword(event.target.value);
   };
 
-  useEffect(() => {
-    if (user) {
-      // const db = getFirestore();
-      const colRef = collection(db, "users");
-      getDocs(colRef).then((snapshot) => {
-        let users = [];
-        snapshot.docs.forEach((doc) => {
-          var user_data = doc.data();
-          var user_uid = user_data.uid;
-          if (user_uid === user.uid) {
-            navigate("/" + user_data.title.toLowerCase());
-          }
-        });
-      });
-    }
-  }, [user, loading]);
-
-  const handlerSubmit = (event) => {
+  const login = async (event) => {
     event.preventDefault();
-    if (email.trim().length === 0) {
-      setEmail_validation(false);
-      return;
-    }
-    if (password.trim().length === 0) {
-      setPassword_validation(false);
-      return;
+    try {
+      const { status, data } = await apiCall("users/login", "POST", {
+        email,
+        password,
+      });
+      console.log(status);
+      localStorage.setItem("user", JSON.stringify(data.user));
+      dispatch({ type: "LOGIN", payload: data.user });
+      navigate("/" + data.user.title.toLowerCase());
+      // navigate("/instructor");
+      console.log(data);
+    } catch (error) {
+      console.log(error);
     }
   };
+
+  // useEffect(() => {
+  //   if (user) {
+  //     // const db = getFirestore();
+  //     const colRef = collection(db, "users");
+  //     getDocs(colRef).then((snapshot) => {
+  //       let users = [];
+  //       snapshot.docs.forEach((doc) => {
+  //         var user_data = doc.data();
+  //         var user_uid = user_data.uid;
+  //         if (user_uid === user.uid) {
+  //           navigate("/" + user_data.title.toLowerCase());
+  //         }
+  //       });
+  //     });
+  //   }
+  // }, [user, loading]);
+
+  // const handlerSubmit = (event) => {
+  //   event.preventDefault();
+  //   if (email.trim().length === 0) {
+  //     setEmail_validation(false);
+  //     return;
+  //   }
+  //   if (password.trim().length === 0) {
+  //     setPassword_validation(false);
+  //     return;
+  //   }
+  // };
 
   return (
     <div>
       <Title />
       <div className="auth-form-container">
         <h2>Login</h2>
-        <form className="login-form" onSubmit={handlerSubmit}>
+        <form className="login-form" onSubmit={(e) => login(e)}>
           <label htmlFor="email">Email</label>
           <input
             style={{
@@ -97,12 +118,7 @@ export const Login = (props) => {
             id="password"
             name="password"
           />
-          <button
-            type="submit"
-            onClick={() => loginWithEmailAndPassword(email, password)}
-          >
-            Log In
-          </button>
+          <button type="submit">Log In</button>
         </form>
         <button
           className="link-btn"
