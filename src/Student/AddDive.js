@@ -1,6 +1,7 @@
 import "./AddDive.css";
-import { useState } from "react";
-import { UpdateDoc } from "./updateDoc";
+import { useEffect, useState } from "react";
+import { useApiContext } from "../hooks/useApiContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 /**A page that allows the user to fill in details about
  * a dive he has performed, and insert it into a json array
@@ -14,13 +15,53 @@ function App() {
   const [depth, setDepth] = useState("");
   const [note, setNote] = useState("");
 
+  // for connection
+  const { apiCall } = useApiContext();
+  const { user } = useAuthContext();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data } = await apiCall("dives");
+        console.log(data?.dives);
+        setDate(data.date);
+        setSite(data.site);
+        setEquipment(data.equipment);
+        setDiveDuration(data.dive_duration);
+        setDepth(data.depth);
+        setNote(data.note);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  async function handleAddDive() {
+    try {
+      const { data } = await apiCall("dives", "POST", {
+        date: date,
+        site: site,
+        equipment: equipment,
+        duration: dive_duration,
+        depth: depth,
+        note: note,
+        user: user._id,
+      });
+      console.log(data.dive);
+    } catch (error) {
+      console.log(error);
+    }
+    setDate("");
+    setSite("");
+    setEquipment("");
+    setDiveDuration("");
+    setDepth("");
+    setNote("");
+  }
+
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        UpdateDoc(date, site, equipment, dive_duration, depth, note);
-      }}
-    >
+    <div>
       <div className="main-AddDive">
         <div>
           Date:{" "}
@@ -72,11 +113,11 @@ function App() {
             onChange={(e) => setNote(e.target.value)}
           ></textarea>
         </div>
-        <button type="submit" className="neon-btn">
+        <button className="neon-btn" onClick={handleAddDive}>
           Add Dive
         </button>
       </div>
-    </form>
+    </div>
   );
 }
 
