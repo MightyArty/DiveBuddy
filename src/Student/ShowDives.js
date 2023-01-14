@@ -31,34 +31,36 @@ const ShowDives = () => {
 
   return (
     <div>
-      <table>
-        <thead>
-          <tr>
-            <th>Confirmed</th>
-            <th>Date</th>
-            <th>Site</th>
-            <th>Dive Duration</th>
-            <th>Depth</th>
-            <th>Special Equipment</th>
-            <th>Note</th>
-          </tr>
-        </thead>
-        <tbody>
-          {divesState.map((data) => {
-            return (
-              <tr key={data._id}>
-                <td>{data.state}</td>
-                <td>{new Date(data.date).toLocaleDateString()}</td>
-                <td>{data.site}</td>
-                <td>{data.duration} min</td>
-                <td>{data.depth} m</td>
-                <td>{data.equipment}</td>
-                <td>{data.note}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+      <div className="app">
+        <table>
+          <thead>
+            <tr>
+              <th>Confirmed</th>
+              <th>Date</th>
+              <th>Site</th>
+              <th>Dive Duration</th>
+              <th>Depth</th>
+              <th>Special Equipment</th>
+              <th>Note</th>
+            </tr>
+          </thead>
+          <tbody>
+            {divesState.map((data) => {
+              return (
+                <tr key={data._id}>
+                  <td>{data.state}</td>
+                  <td>{new Date(data.date).toLocaleDateString()}</td>
+                  <td>{data.site}</td>
+                  <td>{data.duration} min</td>
+                  <td>{data.depth} m</td>
+                  <td>{data.equipment}</td>
+                  <td>{data.note}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

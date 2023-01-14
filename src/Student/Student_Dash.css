@@ -6,8 +6,8 @@
   }
 
   .main-student {
-    /* background: url("https://cdn.pixabay.com/photo/2015/03/30/12/37/jellyfish-698521_1280.jpg"); */
-    background-image: linear-gradient(white,aqua);
+    background: url("https://cdn.pixabay.com/photo/2015/03/30/12/37/jellyfish-698521_1280.jpg");
+    /* background-image: linear-gradient(white,aqua); */
     display: grid;
     min-height: 100vh;
     align-items: center;

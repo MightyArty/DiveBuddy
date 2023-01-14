@@ -11,6 +11,6 @@
     /* background-color: rgb(254, 254, 254); */
     place-items: center;
     font-family: "Tahoma", sans-serif;
-    background-image: linear-gradient(white, aqua, white);
+    background-image: white;
   }
 }
