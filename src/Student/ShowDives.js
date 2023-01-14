@@ -13,8 +13,6 @@ const ShowDives = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log("------------------USER-------------------");
-        console.log(user);
         let api = `dives`;
 
         if (user?.title === "Student") {
