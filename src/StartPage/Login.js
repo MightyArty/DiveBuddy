@@ -1,23 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Title from "../Title/Title";
 import { useNavigate } from "react-router-dom";
-import Select from "react-select";
-import {
-  auth,
-  signInWithEmailAndPassword,
-  loginWithEmailAndPassword,
-} from "../firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { collection, getFirestore, getDocs } from "firebase/firestore";
-import { db } from "../firebase";
 import { useApiContext } from "../hooks/useApiContext";
 import { useAuthContext } from "../hooks/useAuthContext";
 
 export const Login = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [user, loading, error] = useAuthState(auth);
-
   const [email_validation, setEmail_validation] = useState(true);
   const [password_validation, setPassword_validation] = useState(true);
   const { apiCall } = useApiContext();
@@ -55,35 +44,6 @@ export const Login = (props) => {
       console.log(error);
     }
   };
-
-  // useEffect(() => {
-  //   if (user) {
-  //     // const db = getFirestore();
-  //     const colRef = collection(db, "users");
-  //     getDocs(colRef).then((snapshot) => {
-  //       let users = [];
-  //       snapshot.docs.forEach((doc) => {
-  //         var user_data = doc.data();
-  //         var user_uid = user_data.uid;
-  //         if (user_uid === user.uid) {
-  //           navigate("/" + user_data.title.toLowerCase());
-  //         }
-  //       });
-  //     });
-  //   }
-  // }, [user, loading]);
-
-  // const handlerSubmit = (event) => {
-  //   event.preventDefault();
-  //   if (email.trim().length === 0) {
-  //     setEmail_validation(false);
-  //     return;
-  //   }
-  //   if (password.trim().length === 0) {
-  //     setPassword_validation(false);
-  //     return;
-  //   }
-  // };
 
   return (
     <div>

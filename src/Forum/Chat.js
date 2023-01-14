@@ -1,31 +1,32 @@
-import React from "react";
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
+
 import Message from "./Message";
 import SendMessage from "./SendMessage"; /// REMEMEBER - > ONLY BIG LETTERS IN THE BEGINING
-import "./Forum.css";
 import { useApiContext } from "../hooks/useApiContext";
+import { useAuthContext } from "../hooks/useAuthContext";
+import "./Forum.css";
 
 export const Chat = () => {
   const [messages, setMessages] = useState([]);
   const scroll = useRef();
   const { apiCall } = useApiContext();
+  const { user } = useAuthContext();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const { data } = await apiCall("messages");
-        console.log(data?.messages);
         setMessages(data.messages);
       } catch (error) {
         console.log(error);
       }
     };
     fetchData();
-  }, []);
+  }, [apiCall]);
 
   const handleAddMessage = (message) => {
     const newMessages = [...messages];
-    newMessages.push(message);
+    newMessages.push({ user, text: message.text, _id: Math.random() });
     setMessages(newMessages);
   };
 

@@ -7,20 +7,11 @@ import getDay from "date-fns/getDay";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "react-datepicker/dist/react-datepicker.css";
 import React, { useEffect, useState } from "react";
-import { auth, db } from "../firebase";
-import {
-  addDoc,
-  collection,
-  doc,
-  getDocs,
-  getFirestore,
-  onSnapshot,
-  query,
-  where,
-} from "firebase/firestore";
+import { useApiContext } from "../hooks/useApiContext";
 
 const Student_Schedule = () => {
   const [allEvents, setAllEvents] = useState();
+  const {apiCall} = useApiContext()
 
   const locales = {
     "en-US": require("date-fns/locale/en-US"),
@@ -36,26 +27,40 @@ const Student_Schedule = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      let tempData = [];
-      // getting all docs from Schedule collection
-      const querySnapshot = await getDocs(collection(db, "Schedule"));
-      querySnapshot.forEach((doc) => {
-        // going throwgh each doc to get tha values
-        let docData = doc.data();
-        // convert firebase timestap to valid date
-        let start = new Date(docData.start.seconds * 1000);
-        let end = new Date(docData.end.seconds * 1000);
-        tempData.push({
-          title: docData.title,
-          start: start,
-          end: end,
-          id: doc.id,
-        });
-      });
-      setAllEvents(tempData);
+      try {
+        //http://localhost:4000/api/appointments/ method default GET
+        const { data } = await apiCall("appointments");
+        console.log(data?.appointments);
+        setAllEvents(data.appointments);
+      } catch (error) {
+        console.log(error);
+      }
     };
     fetchData();
   }, []);
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     let tempData = [];
+  //     // getting all docs from Schedule collection
+  //     const querySnapshot = await getDocs(collection(db, "Schedule"));
+  //     querySnapshot.forEach((doc) => {
+  //       // going throwgh each doc to get tha values
+  //       let docData = doc.data();
+  //       // convert firebase timestap to valid date
+  //       let start = new Date(docData.start.seconds * 1000);
+  //       let end = new Date(docData.end.seconds * 1000);
+  //       tempData.push({
+  //         title: docData.title,
+  //         start: start,
+  //         end: end,
+  //         id: doc.id,
+  //       });
+  //     });
+  //     setAllEvents(tempData);
+  //   };
+  //   fetchData();
+  // }, []);
 
   return (
     <div className="main-schedule">

@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Title from "../Title/Title";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Select from "react-select";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, registerWithEmailAndPassword } from "../firebase";
 import { useApiContext } from "../hooks/useApiContext";
 
 export const Register = (props) => {
@@ -12,7 +10,6 @@ export const Register = (props) => {
   const [name, setName] = useState("");
   const [id, setId] = useState("");
   const [title, setTitle] = useState("");
-  const [user, loading, error] = useAuthState(auth);
   const navigate = useNavigate();
   const { apiCall } = useApiContext();
 

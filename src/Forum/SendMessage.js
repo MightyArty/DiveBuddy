@@ -27,7 +27,7 @@ const SendMessage = (props) => {
       }
     };
     fetchData();
-  }, []);
+  }, [apiCall]);
 
   async function handleAddEvent() {
     try {
@@ -37,6 +37,7 @@ const SendMessage = (props) => {
       });
       handleAddMessage(data._message);
       console.log(data._message);
+      setMessage("");
     } catch (error) {
       console.log(error);
     }
@@ -46,6 +47,7 @@ const SendMessage = (props) => {
     <div className="form-forum">
       Enter your message
       <input
+        value={message}
         onChange={(e) => setMessage(e.target.value)}
         className={style.input}
         type="text"
