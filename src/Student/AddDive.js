@@ -2,6 +2,8 @@ import "./AddDive.css";
 import { useEffect, useState } from "react";
 import { useApiContext } from "../hooks/useApiContext";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 /**A page that allows the user to fill in details about
  * a dive he has performed, and insert it into a json array
@@ -37,6 +39,32 @@ function App() {
     fetchData();
   }, []);
 
+  const notify = () => {
+    toast.success("Upload was successful!", {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+    toast.info(
+      "Waiting for the instructors approval. You can update later in the app",
+      {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      }
+    );
+  };
+
   async function handleAddDive() {
     try {
       const { data } = await apiCall("dives", "POST", {
@@ -52,6 +80,7 @@ function App() {
     } catch (error) {
       console.log(error);
     }
+    notify();
     setDate("");
     setSite("");
     setEquipment("");
@@ -116,6 +145,7 @@ function App() {
         <button className="neon-btn" onClick={handleAddDive}>
           Add Dive
         </button>
+        <ToastContainer />
       </div>
     </div>
   );
