@@ -3,10 +3,6 @@ import { useEffect, useState } from "react";
 import { useApiContext } from "../hooks/useApiContext";
 import { useAuthContext } from "../hooks/useAuthContext";
 
-/**A page that allows the user to fill in details about
- * a dive he has performed, and insert it into a json array
- * named "dives" which is under the user's id in firestore. */
-
 function App() {
   const [date, setDate] = useState("");
   const [site, setSite] = useState("");
