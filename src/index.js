@@ -11,7 +11,6 @@ import AddDive from "./Student/AddDive";
 import ShowDives from "./Student/ShowDives";
 import Weekly_Update from "./Schedule/Schedule";
 import Student_Schedule from "./Schedule/Student_Schedule";
-// import RecentDives from "./Instructor/RecentDives";
 import DivesOfStudents from "./Instructor/DivesOfStudents";
 import { AuthContextProvider } from "./context/AuthContext";
 import { ApiContextProvider } from "./context/ApiContext";
